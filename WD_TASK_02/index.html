@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stopwatch App</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+   <h1>STOP WATCH</h1>
+  <div class="stopwatch">
+    <div class="time" id="display">00:00:00.000</div>
+    <div class="controls">
+      <button class="start" onclick="start()">Start</button>
+      <button class="pause" onclick="pause()">Pause</button>
+      <button class="reset" onclick="reset()">Reset</button>
+      <button class="lap" onclick="lap()">Lap</button>
+    </div>
+    <ul class="laps" id="laps"></ul>
+  </div>
+
+  <script>
+    let startTime, interval, elapsed = 0;
+
+    function formatTime(ms) {
+      const date = new Date(ms);
+      const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+      const seconds = String(date.getUTCSeconds()).padStart(2, '0');
+      const milliseconds = String(date.getUTCMilliseconds()).padStart(3, '0');
+      return `${minutes}:${seconds}.${milliseconds}`;
+    }
+
+    function updateDisplay() {
+      const current = Date.now() - startTime + elapsed;
+      document.getElementById("display").textContent = formatTime(current);
+    }
+
+    function start() {
+      if (!interval) {
+        startTime = Date.now();
+        interval = setInterval(updateDisplay, 50);
+      }
+    }
+
+    function pause() {
+      if (interval) {
+        clearInterval(interval);
+        interval = null;
+        elapsed += Date.now() - startTime;
+      }
+    }
+
+    function reset() {
+      clearInterval(interval);
+      interval = null;
+      elapsed = 0;
+      document.getElementById("display").textContent = "00:00:00.000";
+      document.getElementById("laps").innerHTML = "";
+    }
+
+    function lap() {
+      if (interval) {
+        const current = Date.now() - startTime + elapsed;
+        const lapTime = formatTime(current);
+        const li = document.createElement("li");
+        li.textContent = `Lap ${document.querySelectorAll("#laps li").length + 1}: ${lapTime}`;
+        document.getElementById("laps").appendChild(li);
+      }
+    }
+  </script>
+
+</body>
+</html>
