@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Build My Own To-Do App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  
+  <div class="todo-app">
+    <h2>📌 Build My Own To-Do App 📝</h2>
+    <form id="todo-form">
+      <input type="text" id="task-input" placeholder="Task..." required />
+      <input type="datetime-local" id="datetime-input" />
+      <select id="priority-select">
+        <option value="Low">Low 🟢</option>
+        <option value="Medium" selected>Medium 🟡</option>
+        <option value="High">High 🔴</option>
+      </select>
+      <button class="add-btn" type="submit" title="Add Task">＋</button>
+    </form>
+
+    <div class="filter-bar">
+      <label for="priority-filter">Filter by Priority:</label>
+      <select id="priority-filter">
+        <option value="All">All</option>
+        <option value="Low">Low 🟢</option>
+        <option value="Medium">Medium 🟡</option>
+        <option value="High">High 🔴</option>
+      </select>
+      <button id="clear-all">🧹 Clear All</button>
+    </div>
+
+    <p id="task-count">Total Tasks: 0</p>
+    <ul id="task-list"></ul>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
